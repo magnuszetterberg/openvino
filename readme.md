@@ -15,7 +15,9 @@ Install the requried pip packages
 Download the person-detection-0200 model
 
 	omz_downloader --name person-detection-0200
+ 
  OR the command below - depending on where the omz_downloader where installed
+ 
  	~/.local/bin/omz_downloader --name person-detection-0200
 
 Add your input and output rtmp urls into main.py
