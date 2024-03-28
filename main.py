@@ -3,6 +3,9 @@ import numpy as np
 import subprocess
 from openvino.runtime import Core
 
+inputSource = "rtmp://localhost:1936/live/NewYork"
+OutputDestination = "rtmp://localhost/app/NewYork-Detections"
+
 # Initialize OpenVINO runtime
 core = Core()
 # Read the network and corresponding weights from a model file
@@ -41,7 +44,7 @@ def draw_detections(frame, detections, threshold=0.7):
 
 
 # Initialize video capture
-cap = cv2.VideoCapture('<add your input rtmp url here>', cv2.CAP_FFMPEG)
+cap = cv2.VideoCapture(inputSource, cv2.CAP_FFMPEG)
 
 if not cap.isOpened():
     print("Cannot open RTMP stream")
@@ -68,11 +71,12 @@ command = [
     '-tune', 'zerolatency',  # tune for zero latency
     '-b:v', '2500k',  # bitrate (you may want to adjust this according to your needs)
     '-f', 'flv',  # output format
-    '<add your output rtmp url here'  # output location
+    OutputDestination  # output location
 
 ]
 
 process = subprocess.Popen(command, stdin=subprocess.PIPE)
+
 
 # Read and process frames
 while True:
